@@ -1,69 +1,88 @@
-# FinAdvisor — Multilingual Personal Finance Advisory Chatbot
+# Finance ChatBot 
 
 ## Overview
+Finance ChatBot is an AI-powered personal finance assistant built using LangGraph, ChromaDB, and LLMs. It provides intelligent, context-aware responses for financial queries such as budgeting, SIP, loans, tax planning, insurance, and investment strategies.
 
-FinAdvisor is an agentic AI chatbot designed to provide personalised financial guidance in English, Hindi, and Bengali. It uses LangGraph for multi-step orchestration, Retrieval-Augmented Generation (RAG) over a curated finance knowledge base, and persistent conversation memory to enable context-aware, multi-turn interactions.
+The system supports retrieval-augmented generation (RAG), tool-based EMI calculation, multi-turn memory, and language-aware responses.
 
 ---
 
-## Problem Statement
+## Project Files
 
-Access to reliable and personalised financial advice remains limited for many individuals due to cost, language barriers, and the complexity of financial concepts. FinAdvisor offers an accessible, multilingual, AI-powered assistant that makes financial decisions easier and provides grounded responses based on trusted sources.
+- Finance_ChatBot_clean.ipynb  
+  Contains the complete implementation of the LangGraph-based Finance ChatBot with structured pipeline and clean code.
+
+- Finance_ChatBot_demo.ipynb  
+  Contains executed outputs showing real working examples of the chatbot including RAG responses, EMI calculations, and multi-language outputs.
+
+- README.md  
+  Project documentation and overview.
+---
+
+## Features
+
+- Retrieval-Augmented Generation (RAG) using ChromaDB
+- Finance knowledge base covering:
+  - Budgeting
+  - SIP and Mutual Funds
+  - Loans and EMI
+  - Tax saving instruments
+  - Insurance
+  - Stock market basics
+  - Retirement planning
+- EMI Calculator tool integration
+- Multi-turn conversation memory
+- Language-aware responses (English, Hindi, Bengali)
+- LangGraph-based modular agent pipeline
+- Router-based decision system (retrieve / tool / chitchat)
 
 ---
 
 ## Architecture
 
-```
-User Query
-    ↓
-Memory Node
-(maintains conversation context and extracts user details)
-    ↓
-Router Node
-(decides: retrieval/chit-chat/memory-only)
-    ↓
-Retrieval Node / Skip Node
-(fetches relevant finance context if needed)
-    ↓
-Answer Node
-(generates response using LLM + retrieved context + chat history)
-    ↓
-Evaluation Node
-(validates response quality and faithfulness score)
-    ↓
-Save Node
-(stores updated conversation state)
-    ↓
-Final Output
-```
+User Query → Memory Node → Router Node → (Retrieval / Tool / Skip) → Answer Node → Evaluation Node → Save Node
 
 ---
 
-## Features
+## Tech Stack
 
-* Multi-turn conversational memory using state management
-* Retrieval-Augmented Generation over curated finance documents
-* Self-evaluation mechanism for response faithfulness
-* Language support for English, Hindi, and Bengali
-* Modular LangGraph-based agent architecture with multiple reasoning nodes
-* Streamlit-based interactive user interface
+- Python
+- LangGraph
+- LangChain
+- ChromaDB
+- HuggingFace Embeddings
+- Groq / Google Gemini LLM
+- Streamlit 
+- Jupyter Notebook (Colab)
 
 ---
 
-## Setup Instructions
+## How It Works
+
+1. User inputs a finance-related question
+2. Router classifies the query:
+   - Retrieval for finance knowledge
+   - Tool for EMI calculation
+   - Chitchat for casual queries
+3. Relevant context is retrieved from vector database
+4. LLM generates a response based on context and memory
+5. Evaluation node checks faithfulness
+6. Response is returned to user
+
+---
+
+## Example Queries
+
+- What is SIP and how does it work?
+- Calculate EMI for 500000 at 8.5% for 240 months
+- What is an emergency fund?
+- Best way to save tax in India?
+
+---
+
+## Setup (for running notebook)
+
+Install dependencies:
 
 ```bash
-pip install -r requirements.txt
-streamlit run app.py
-```
-
-Provide your Groq API key in the application sidebar to enable LLM functionality. API keys can be generated from the Groq console.
-
----
-
-## Covered Financial Topics
-
-Budgeting, systematic investment plans, mutual funds, taxation (80C, 80D), home loans, insurance, stock market basics, retirement planning, debt management, gold investment, real estate, and long-term financial goal planning.
-
-
+pip install langgraph langchain chromadb sentence-transformers streamlit
